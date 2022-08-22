@@ -1,0 +1,2688 @@
+STARTUP:		;;$E000
+	SEI
+	CSH
+	CLD
+	LDA #$FF
+	TAM #MPR0
+	LDA #$F8
+	TAM #MPR1
+	LDA #$F9
+	TAM #MPR2
+	LDA #$01
+	TAM #MPR3
+	LDA #$02
+	TAM #MPR4
+	LDA #$08
+	TAM #MPR6
+	STZ $0C01
+	STZ IRQDIS
+	LDX #$FF
+	TXS
+	STZ $0400
+	JSR INIT_VCE
+	JSR INIT_VDC
+	LDA #$05
+	STA $24
+	STA $0000
+	LDA #$0E
+	STA $0002
+	STZ $0003
+	LDA #$05
+	STA $25
+	STA $0010
+	LDA #$0E
+	STA $0012
+	STZ $0013
+	CLA
+	STA $00
+	TII $2000, $2001, $3FFF
+	LDA #$0E
+	STA $20
+	STA $21
+	LDA #$0E
+	STA $22
+	STA $23
+	LDA $01
+	STA $35
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$58
+	TAM #MPR3
+	INC A
+	TAM #MPR4
+	INC A
+	TAM #MPR5
+	INC A
+	TAM #MPR6
+	JSR $6000
+	JSR $6009
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+	JSR $6761
+	JSR $6B31
+	JSR $E86F
+	JSR $E868
+	LDA #$33
+	STA VPC_CTRL1
+	STA VPC_CTRL2
+	STZ VPC_WIN1_LOW
+	STZ VPC_WIN1_HIGH
+	STZ VPC_WIN2_LOW
+	STZ VPC_WIN2_HIGH
+	JSR $6E6E
+	JSR $6EEF
+	JSR $6F04
+	JSR $6EB7
+	JSR $6EC5
+	JSR $6EBE
+	JSR $6ECC
+	JSR $EDD7
+	LDA #$00
+	STA $2200
+	LDA #$80
+	STA $2201
+	CLI
+$EOD3:
+	BBR0 $1C, $E0D3
+	INC $3C
+	BNE $E0DC
+	INC $3D
+$E0DC:
+	LDA $3E
+	BNE $E0E4
+	LDA #$E0
+	STA $3E
+$E0E4:
+	INC $3E
+	LDA $222E
+	AND #$FE
+	STA $222E
+	LDA $30
+	AND #$08
+	BEQ $E102
+	LDA $1C
+	EOR #$02
+	STA $1C
+	LDA $222E
+	ORA #$01
+	STA $222E
+$E102:
+	RMB2 $1C
+	BBR1 $1C, $E109
+	SMB2 $1C
+$E109:
+	BBR1 $1C, $E10F
+	JMP $E19F
+$E10F:
+	LDA $26
+	STA $36
+	EOR $37
+	AND $36
+	STA $38
+	LDA $37
+	EOR $36
+	AND $2B
+	STA $39
+	LDA $36
+	STA $37
+	BBS0 $A3, $E12B
+	JMP $E191
+$E12B:
+	LDA $36
+	AND #$FC
+	STA $00
+	LDA $36
+	BIT #$01
+	BEQ $E13D 
+	LDA $00
+	ORA #$02
+	STA $00
+$E13D:
+	LDA $36
+	BIT #$02
+	BEQ $E149 
+	LDA $00
+	ORA #$01
+	STA $00
+$E149:
+	LDA $00
+	STA $36
+	LDA $38
+	AND #$FC
+	STA $00
+	LDA $38
+	BIT #$01
+	BEQ $E15F
+	LDA $00
+	ORA #$02
+	STA $00
+$E15F:
+	LDA $38
+	BIT #$02
+	BEQ $E16B
+	LDA $00
+	ORA #$00
+	STA $00
+$E16B:
+	LDA $00
+	STA $38
+	LDA $39
+	AND #$FC
+	STA $00
+	LDA $39
+	BIT #$01
+	BEQ $E181
+	LDA $00
+	ORA #$02
+	STA $00
+$E181:
+	LDA $39
+	BIT #$02
+	BEQ $E18D
+	LDA $00
+	ORA #$01
+	STA $00
+$E18D:
+	LDA $00
+	STA $39
+$E191:
+	INC $3A
+	BNE $E197
+	INC $3B
+$E197:
+	LDA $3B82
+	BEQ $E19F 
+	DEC $3B82
+$E19F:	
+	JSR $6890
+	JSR $68AF
+	JSR $E8C0
+	JSR $EDD7
+	LDA $3B8B
+	PHA
+	LDA #$01
+	STA $3B8B
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$58
+	TAM #MPR3
+	INC A
+	TAM #MPR4
+	INC A
+	TAM #MPR5
+	INC A
+	TAM #MPR6
+	JSR $6003
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+	PLA
+	STA $3B8B
+	LDA #$02
+	TAM #MPR4
+	LDA $2200
+	STA $0C
+	LDA $2201
+	STA $0D
+	JSR $E2B4
+	CLX
+$E1F2:
+	LDA $2300, X
+	TAM #MPR4
+	LDA $2230, X
+	STA $0C
+	LDA $2298, X
+	STA $0D
+	STX $A2
+	JSR $E2B4
+	INX
+	CPX #$18
+	BNE $E1F2
+	BBR1 $1C, $E211 
+	JMP $E214
+$E211:
+	JSR $E9F7
+$E214:	
+	LDA $30D0
+	AND #$BF
+	STA $30D0
+	LDA $3A
+	STA $2221
+$E221:
+	LDA $2230, X
+	STA $0C
+	LDA $2298, X
+	STA $0D
+	STX $A2
+	JSR $E2B4
+	JSR $E2BE
+	LDA $2438, X
+	CMP #$FF
+	BEQ $E242
+	TAX
+	LDA $2300
+	TAM #MPR4
+	BRA $E221
+$E242:
+	JSR $7624
+	JSR $7661
+	BBR1 $1C, $E24E
+	JMP $E281
+$E24E:
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$0A
+	TAM #MPR3
+	LDA $3B7E 
+	AND #$01
+	BNE $E268 
+	JSR $61E1
+$E268:
+	LDA $3B7E
+	AND #$02
+	BNE $E272 
+	JSR $6473
+$E272:
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM $08	
+	JSR $E9C6
+$E281:
+	JSR $6BD5
+	JSR $EE8C
+	JSR $F06D
+	LDA #$13
+	STA $24
+	STA $0000
+	LDA #$00
+	STA $0002
+	LDA #$0F
+	STA $0003
+	LDA #$13
+	STA $25
+	STA $0010
+	LDA #$00
+	STA $0012
+	LDA #$0F
+	STA $0013
+	JSR $E8F5
+	RMB0 $1C
+	JMP $E0D3
+$E2B4:
+	JMP $200C
+$E2B7:
+	RTS
+$E2B8:
+	RTS
+$E2B9:
+	BBR1 $1F, $E2CB
+	ST0 #$01
+$E2BE:
+	LDA $3068
+	TAY
+	INC $2221
+	LDA $2221
+	AND $E2B9, Y
+$E2CB:
+	LDA $2848
+	AND #$08
+	BEQ $E2B8 
+	LDA $26A8, X
+	CMP #$00
+	BNE $E2DE 
+	LDA $2640, X
+	CMP #$60
+$E2DE:
+	BCC $E2B8 
+	LDA $26A8, X
+	CMP #$01
+	BNE $E2EC 
+	LDA $2640, X
+	CMP #$00
+$E2EC:
+	BCS $E2B8 
+	LDA $2570, X
+	CMP #$00
+	BNE $E2FA
+	LDA $2508, X
+	CMP #$08
+$E2FA:
+	BCC $E2B8
+	LDA $2570, X
+	CMP #$01
+	BNE $E308
+	LDA $2508, X
+	CMP #$40
+$E308:
+	BCS $E2B8
+	TXA
+	LDY #$02
+$E30D:
+	CMP $30D0, Y
+	BEQ $E2B8
+	INY
+	CPY #$06
+	BNE $E30D 
+	STZ $02
+	STZ $03
+	STZ $04
+	LDY #$02
+$E31F:
+	LDA $30D0, Y
+	BNE $E374
+	LDA $2640
+	STA $00
+	LDA $26A8, X
+	STA $01
+	LDA $00
+	SEC
+	SBC $2640, Y
+	STA $00
+	LDA $01
+	SBC $26A8, Y
+	STA $01
+	BCS $E350
+	CLC
+	LDA $00
+	EOR #$FF
+	ADC #$01
+	STA $00
+	LDA $01
+	EOR #$FF
+	ADC #$00
+	STA $01
+$E350:
+	LDA $00
+	CLC
+	ADC #$10
+	STA $00
+	LDA $01
+	ADC #$00
+	STA $01
+	LDA $03
+	CMP $01
+	BNE $E367 
+	LDA $02
+	CMP $00
+$E367:
+	BCS $E374
+	LDA $00
+	STA $02
+	LDA $01
+	STA $03
+	TYA
+	STA $04
+$E374:
+	INY
+	CPY #$06
+	BNE $E31F
+	LDA $04
+	BEQ $E386
+	TAY
+	TXA
+	STA $30D0, Y
+	CLA
+	STA $33A8, Y
+$E386:
+	RTS
+$E387:
+	LDA #$73
+	STA $00
+	LDA #$D0
+	STA $01
+	LDA $3068
+	BEQ $E3BD
+	LDA #$65
+	STA $00
+	LDA #$D0
+	STA $01
+	DEC A
+	BEQ $E3BD
+	LDA #$57
+	STA $00
+	LDA #$D0
+	STA $01
+	DEC A
+	BEQ $E3BD 
+	LDA #$49
+	STA $00
+	LDA #$D0
+	STA $01
+	DEC A
+	BEQ $E3BD
+	LDA #$3B
+	STA $00
+	LDA #$D0
+$E3BD:
+	STA $01
+	LDA $00
+	STA $BD
+	LDA $01
+	STA $BE
+	LDA #$73
+	STA $00
+	LDA #$D0
+	STA $01
+	LDY #$17
+	LDA $27E0, Y
+	BEQ $E3DC
+	LDA #$24
+	STA $00
+	LDA #$D0
+	STA $01
+$E3DC:
+	LDA $00
+	STA $BF
+	LDA $01
+	STA $C0
+	RTS
+$E3E5:	
+	$01, $04, $FC, $00, $00, $01, $04, $FC, $02, $00, $01, 
+	$04, $FC, $04, $00, $01, $04, $FC, $06, $00, $01, $04, $FC, 
+	$08, $00, $01, $04, $FC, $0A, $00, $01, $04, $FC, $0C, $00, 
+	$01, $04, $FC, $0E, $00, $01, $04, $FC, $01, $00, $01, $04, 
+	$FC, $03, $00, $00, $01, $FC, $FC, $02, $00, $01, $FC, $FC, 
+	$04, $00, $01, $FC, $FC, $06, $00, $02, $E5, $E3, $F0, $17, 
+	$E4, $F0, $02, $EA, $E3, $F0, $17, $E4, $F0, $02, $EF, $E3, 
+	$F0, $17, $E4, $F0, $02, $F4, $E3, $F0, $17, $E4, $F0, $02, 
+	$F9, $E3, $F0, $17, $E4, $F0, $02, $FE, $E3, $F0, $17, $E4, 
+	$F0, $02, $03, $E4, $F0, $17, $E4, $F0, $02, $08, $E4, $F0,
+	$17, $E4, $F0, $02, $0D, $E4, $F0, $17, $E4, $F0, $02, $12, 
+	$E4, $F0, $17, $E4, $F0, $02, $E5, $E3, $F0, $18, $E4, $F0, 
+	$02, $EA, $E3, $F0, $18, $E4, $F0, $02, $EF, $E3, $F0, $18, 
+	$E4, $F0, $02, $F4, $E3, $F0, $18, $E4, $F0, $02, $F9, $E3, 
+	$F0, $18, $E4, $F0, $02, $FE, $E3, $F0, $18, $E4, $F0, $02, 
+	$03, $E4, $F0, $18, $E4, $F0, $02, $08, $E4, $F0, $18, $E4, 
+	$F0, $02, $0D, $E4, $F0, $18, $E4, $F0, $02, $12, $E4, $F0,
+	$18, $E4, $F0, $02, $E5, $E3, $F0, $1D, $E4, $F0, $02, $EA, 
+	$E3, $F0, $1D, $E4, $F0, $02, $EF, $E3, $F0, $1D, $E4, $F0, 
+	$02, $F4, $E3, $F0, $1D, $E4, $F0, $02, $F9, $E3, $F0, $1D, 
+	$E4, $F0, $02, $FE, $E3, $F0, $1D, $E4, $F0, $02, $03, $E4, 
+	$F0, $1D, $E4, $F0, $02, $08, $E4, $F0, $1D, $E4, $F0, $02, 
+	$0D, $E4, $F0, $1D, $E4, $F0, $02, $12, $E4, $F0, $1D, $E4, 
+	$F0, $02, $E5, $E3, $F0, $22, $E4, $F0, $02, $EA, $E3, $F0,
+	$22, $E4, $F0, $D9, $E7, $83, $E6, $30, $E7, $D9, $E7, $00, 
+	$00, $F0, $FF, $00, $00, $27, $E4, $04, $00, $F0, $FF, $00,
+	$00, $2E, $E4, $08, $00, $F0, $FF, $00, $00, $35, $E4, $0C,
+	$00, $F0, $FF, $00, $00, $3C, $E4, $10, $00, $F0, $FF, $00,
+	$00, $43, $E4, $14, $00, $F0, $FF, $00, $00, $4A, $E4, $18,
+	$00, $F0, $FF, $00, $00, $51, $E4, $1C, $00, $F0, $FF, $00,
+	$00, $58, $E4, $20, $00, $F0, $FF, $00, $00, $5F, $E4, $24,
+	$00, $F0, $FF, $F0, $FF, $66, $E4, $28, $00, $00, $00, $F0,
+	$FF, $6D, $E4, $2C, $00, $00, $00, $F0, $FF, $74, $E4, $30,
+	$00, $00, $00, $F0, $FF, $7B, $E4, $34, $00, $00, $00, $F0,
+	$FF, $82, $E4, $38, $00, $00, $00, $F0, $FF, $89, $E4, $3C,
+	$00, $04, $00, $F0, $FF, $90, $E4, $40, $00, $04, $00, $00,
+	$00, $97, $E4, $44, $00, $04, $00, $00, $00, $9E, $E4, $48,
+	$00, $04, $00, $00, $00, $A5, $E4, $4C, $00, $04, $00, $00,
+	$00, $AC, $E4, $50, $00, $04, $00, $00, $00, $B3, $E4, $54,
+	$00, $04, $00, $00, $00, $BA, $E4, $58, $00, $04, $00, $00,
+	$00, $C1, $E4, $5C, $00, $04, $00, $00, $00, $C8, $E4, $60,
+	$00, $04, $00, $00, $00, $CF, $E4, $64, $00, $04, $00, $04,
+	$00, $D6, $E4, $68, $00, $00, $00, $04, $00, $DD, $E4, $6C,
+	$00, $00, $00, $04, $00, $E4, $E4, $70, $00, $00, $00, $04,
+	$00, $EB, $E4, $74, $00, $00, $00, $04, $00, $F2, $E4, $78,
+	$00, $00, $00, $04, $00, $F9, $E4, $7C, $00, $F8, $FF, $04,
+	$00, $00, $E5, $FF, $FF, $00, $00, $27, $E4, $02, $00, $2E,
+	$E4, $04, $00, $35, $E4, $06, $00, $3C, $E4, $08, $00, $43,
+	$E4, $0A, $00, $4A, $E4, $0C, $00, $51, $E4, $0E, $00, $58,
+	$E4, $10, $00, $5F, $E4, $12, $00, $66, $E4, $14, $00, $6D,
+	$E4, $16, $00, $74, $E4, $18, $00, $7B, $E4, $1A, $00, $82,
+	$E4, $1C, $00, $89, $E4, $1E, $00, $90, $E4, $20, $00, $97,
+	$E4, $22, $00, $9E, $E4, $24, $00, $A5, $E4, $26, $00, $AC,
+	$E4, $28, $00, $B3, $E4, $2A, $00, $BA, $E4, $2C, $00, $C1,
+	$E4, $2E, $00, $C8, $E4, $30, $00, $CF, $E4, $32, $00, $D6,
+	$E4, $34, $00, $DD, $E4, $36, $00, $E4, $E4, $FF, $FF, $9E,
+	$10, $27, 
+$E686:
+	LDA $2848, X
+	ORA #$80
+	STA $2848, X
+	LDA #$0F
+	STA $14
+	LDA #$E5
+	STA $15
+$E696:
+	LDA [$14]
+	STA $0E
+	LDY #$01
+	LDA [$14], Y
+	STA $0F
+	LDA $0F
+	CMP #$FF
+	BNE $E6AA
+	LDA $0E
+	CMP #$FF
+$E6AA:
+	BNE $E6AF
+	JMP $E72F
+$E6AF:
+	LDA $14
+	PHA
+	LDA $15
+	PHA
+	JSR $DE7B
+	PLA
+	STA $15
+	PLA
+	STA $14
+	LDY #$02
+	LDA [$14], Y
+	STA $00
+	LDY #$03
+	LDA [$14], Y
+	STA $01
+	LDA $2508, X
+	CLC
+	ADC $00
+	STA $2508, X
+	LDA $2570, X
+	ADC $01
+	STA $2570, X
+	LDY #$04
+	LDA [$14], Y
+	STA $00
+	LDY #$05
+	LDA [$14], Y
+	STA $01
+	LDA $2640, X
+	CLC
+	ADC $00
+	STA $2640, X
+	LDA $26A8, X
+	ADC $01
+	STA $26A8, X
+	LDY #$06
+	LDA [$14], Y
+	STA $0C
+	LDY #$07
+	LDA [$14], Y
+	STA $0D
+	LDA $14
+	PHA
+	LDA $15
+	PHA
+	JSR $7049
+	STZ $29E8, X
+	JSR $70F9
+	INC $29E8, X
+	JSR $70F9
+	PLA
+	STA $15
+	PLA
+	STA $14
+	LDA $14
+	CLC
+	ADC #$08
+	STA $14
+	LDA $15
+	ADC #$00
+	STA $15
+	JMP $E696
+$E72F:
+	RTS
+$E730:
+	STZ $2710, X
+	LDA $2848, X
+	ORA #$80
+	STA $2848, X
+	LDA #$11
+	STA $14
+	LDA #$E6
+	STA $15
+$E743:
+	LDA [$14]
+	STA $0E
+	LDY #$01
+	LDA [$14], Y
+	STA $0F
+	LDA $0F
+	CMP #$FF
+	BNE $E757
+	LDA $0E
+	CMP #$FF
+$E757:	
+	BNE $E75C 
+	JMP $E7D8
+$E75C:
+	LDA $14
+	PHA
+	LDA $15
+	PHA
+	JSR $DF21
+	PLA
+	STA $15
+	PLA
+	STA $14
+	JSR $C80A
+	JSR $CAF7
+	BCS $E7C8 
+	LDY #$02
+	LDA [$14], Y
+	STA $0C
+	LDY #$03
+	LDA [$14], Y
+	STA $0D
+	LDA $14
+	PHA
+	LDA $15
+	PHA
+	JSR $7049
+	STZ $29E8, X
+	LDA #$14
+	STA $2508, X
+	LDA #$01
+	STA $2570, X
+	JSR $70F9
+	LDA #$24
+	STA $2508, X
+	LDA #$00
+	STA $2570, X
+	JSR $70F9
+	INC $29E8, X
+	LDA #$14
+	STA $2508, X
+	LDA #$01
+	STA $2570, X
+	JSR $70F9
+	LDA #$24
+	STA $2508, X
+	LDA #$00
+	STA $2570, X
+	JSR $70F9
+	PLA
+	STA $15
+	PLA
+	STA $14
+$E7C8:
+	LDA $14
+	CLC
+	ADC #$04
+	STA $14
+	LDA $15
+	ADC #$00
+	STA $15
+	JMP $E743
+$E7D8:
+	RTS
+$E7D9:
+	RTS
+$E7DA:
+	LDA #$06
+	TAM #MPR4
+	LDA #$75
+	TAM #MPR5
+	LDA [$40]
+	STA $00
+	LDY #$01
+	LDA [$40], Y
+	STA $01
+	LDA $3B78
+	CMP $01
+	BNE $E7F8
+	LDA $3B77
+	CMP $00
+$E7F8:
+	BCC $E867
+	LDY #$03
+	LDA [$40], Y
+	INY
+	STA $08
+	AND #$0F
+	BEQ $E81B
+	BIT #$08
+	BNE $E811
+	DEC A
+	CMP $3B76
+	BCS $E85A
+	BRA $E81B
+$E811:
+	AND #$07
+	BEQ $E81B
+	DEC A
+	CMP $3B75
+	BCS $E85A
+$E81B:
+	LDA [$40], Y
+	INY
+	STA $0A
+	LDA [$40], Y
+	STA $0B
+	LDY #$02
+	LDA [$40], Y
+	TAY
+	ASL A
+	STA $0E
+	CLA
+	ROL A
+	STA $0F
+	TYA
+	CLC
+	ADC $0E
+	STA $0E
+	CLA
+	ADC $0F
+	STA $0F
+	LDA $0E
+	CLC
+	ADC #$7A
+	STA $0E
+	LDA $0F
+	ADC #$A1
+	STA $0F
+	LDY #$01
+	LDA [$0E], Y
+	INY
+	STA $0C
+	LDA [$0E], Y
+	STA $0D
+	LDA [$0E]
+	TAM #MPR4
+	JSR $E2B4
+$E85A:
+	LDA $40
+	CLC
+	ADC #$06
+	STA $40
+	LDA $41
+	ADC #$00
+	STA $41
+$E867:
+	RTS 
+$E868:	
+	STZ $3B42
+	STZ $3B43
+	RTS
+$E86F:	
+	STZ $3AF0
+	LDA #$4E 
+	STA $3AF1
+	LDX #$1A
+$E879:
+	STZ $2230, X
+	STZ $2298, X
+	INX
+	CPX #$68
+	BNE $E879
+	CLX
+	LDA #$1A
+$E887:
+	STA $3AF2, X
+	INX
+	INC A
+	CMP #$68
+	BNE $E887
+	LDX #$18
+	LDA #$87
+	STA $2230, X
+	LDA #$E3
+	STA $2298, X
+	STZ $2368, X
+	STZ $23D0, X
+	LDA #$19
+	STA $2438, X
+	INX
+	LDA #$DA
+	STA $2230, X
+	LDA #$E7
+	STA $2298, X
+	LDA #$FF
+	STA $2368, X
+	STA $2438, X
+	LDA #$18
+	STA $23D0, X
+	RTS
+$E8C0:
+	STZ $3B81
+	STZ $A0
+	STZ $A1
+	RMB4 $1C
+	LDA $1E
+	AND #$02
+	BEQ $E8D3 
+	SMB4 $1C
+	RMB1 $1E
+$E8D3:
+	RMB4 $1D
+	LDA $1F
+	AND #$02
+	BEQ $E8DF
+	SMB4 $1D
+	RMB1 $1F
+$E8DF:
+	RTS
+$E8E0:
+	PHX
+	LDX $3B43
+	STA $3B44, X
+	TXA
+	INC A
+	AND #$0F
+	CMP $3B42
+	BEQ $E8F3
+	STA $3B43
+$E8F3:
+	PLX
+	RTS
+$E8F5:
+	LDX $3B42
+	CPX $3B43
+	BEQ $E935
+	LDA $3B44, X
+	TAY
+	TXA
+	INC A
+	AND #$0F
+	STA $3B42
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$58
+	TAM #MPR3
+	INC A
+	TAM #MPR4
+	INC A
+	TAM #MPR5
+	INC A
+	TAM #MPR6
+	TYA
+	LDX #$03
+	LDY #$03
+	JSR $6006
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+$E935:
+	RTS
+$E936:
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$0A
+	TAM #MPR3
+	JSR $6000
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+	RTS
+$E956:
+	LDA $0C
+	STA $0E
+	LDA $0D
+	STA $0F
+	LDA [$0E]
+	STA $02
+	LDY #$01
+	LDA [$0E], Y
+	STA $03
+	INY
+	LDA [$0E], Y
+	STA $14
+	INY
+	LDA [$0E], Y
+	STA $15
+	INY
+	LDA [$0E], Y
+	STA $0C
+	INY
+	LDA [$0E], Y
+	STA $0D
+	INY
+	LDA [$0E], Y
+	STA $12
+	INY
+	LDA [$0E], Y
+	STA $13
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$0A
+	TAM #MPR3
+	JSR $67B5
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+	RTS
+$E9A6:
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$0A
+	TAM #MPR3
+	JSR $68ED
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+	RTS
+$E9C6:
+	LDA $65
+	STA $59
+	LDA $66
+	STA $5A
+	LDA $67
+	STA $5B
+	LDA $68
+	STA $5C
+	LDA $69
+	STA $5D
+	LDA $6A
+	STA $5E
+	LDA $6B
+	STA $5F
+	LDA $6C
+	STA $60
+	LDA $6D
+	STA $61
+	LDA $6E
+	STA $62
+	LDA $6F
+	STA $63
+	LDA $70
+	STA $64
+	RTS
+$E9F7:
+	LDA $59
+	STA $65
+	LDA $5A
+	STA $66
+	LDA $5B
+	STA $67
+	LDA $5C
+	STA $68
+	LDA $5D
+	STA $69
+	LDA $5E
+	STA $6A
+	LDA $5F
+	STA $6B
+	LDA $60
+	STA $6C
+	LDA $61
+	STA $6D
+	LDA $62
+	STA $6E
+	LDA $63
+	STA $6F
+	LDA $64
+	STA $70
+	LDA $66
+	STA $02
+	LDA $67
+	STA $03
+	LDA $66
+	STA $00
+	LDA $65
+	CLC
+	ADC $71
+	STA $65
+	LDA $66
+	ADC $72
+	STA $66
+	CLA
+	ADC $67
+	STA $67
+	LDA $66
+	EOR $00
+	AND #$20
+	BEQ $EA56
+	LDA $4D
+	CLC
+	ADC #$04
+	AND #$3C
+	STA $4D
+$EA56:
+	LDA $66
+	STA $04
+	LDA $67
+	STA $05
+	LDA $02
+	SEC A
+	SBC $04
+	STA $02
+	LDA $03
+	SBC $05
+	STA $03
+	BCC $EA7C
+	BEQ $EA7C
+	LDA $02
+	SEC A
+	SBC #$00
+	STA $02
+	LDA $03
+	SBC #$02
+	STA $03
+$EA7C:
+	LDA $02
+	STA $42
+	LDA $03
+	STA $43
+	CLC
+	LDA $02
+	EOR #$FF
+	ADC #$01
+	STA $02
+	LDA $03
+	EOR #$FF
+	ADC #$00
+	STA $03
+	LDA $3B77
+	CLC
+	ADC $02
+	STA $3B77
+	LDA $3B78
+	ADC $03
+	STA $3B78
+	LDA $4A
+	BEQ $EAB0
+	STA $42
+	LDA #$FF
+	STA $43
+$EAB0:
+	LDA $69
+	STA $02
+	LDA $6A
+	STA $03
+	LDA $68
+	CLC 
+	ADC $73
+	STA $68
+	LDA $69
+	ADC $74
+	STA $69
+	BBS7 $74, $EAE8
+	BCC $EACC
+	INC $6A
+$EACC:
+	LDA $3F
+	CMP #$02
+	BNE $EB06
+	LDA $6A
+	CMP #$00
+	BNE $EADC
+	LDA $69
+	CMP #$E7
+$EADC:
+	BCC $EB06
+	LDA #$E7
+	STA $69
+	LDA #$00
+	STA $6A
+	BRA $EB06
+$EAE8:
+	BCS $EB06
+	DEC $6A
+	LDA $3F
+	CMP #$02
+	BNE $EB06 
+	LDA $6A
+	CMP #$02
+	BNE $EAFC
+	LDA $69
+	CMP #$00
+$EAFC:	
+	BCC $EB06
+	LDA #$00
+	STA $69
+	LDA #$00
+	STA $6A
+$EB06:	
+	LDA $69
+	STA $04
+	LDA $6A
+	STA $05
+	BBR7 $6A, $EB20
+	LDA $69
+	CLC
+	ADC #$C0
+	STA $69
+	LDA $6A
+	ADC #$01
+	STA $6A
+	BRA $EB39
+$EB20:
+	LDA $6A
+	CMP #$01
+	BNE $EB2A
+	LDA $69
+	CMP #$C0
+$EB2A:
+	BCC $EB39
+	LDA $69
+	SEC A
+	SBC #$C0
+	STA $69
+	LDA $6A
+	SBC #$01
+	STA $6A
+$EB39:
+	LDA $02
+	SEC A
+	SBC $04
+	STA $02
+	LDA $03
+	SBC $05
+	STA $03
+	BCC $EB57
+	BEQ $EB57
+	LDA $02
+	SEC A
+	SBC #$00
+	STA $02
+	LDA $03
+	SBC #$02
+	STA $03
+$EB57:	
+	LDA $02
+	STA $44
+	LDA $03
+	STA $45
+	LDA $6C
+	STA $02
+	LDA $6D
+	STA $03
+	LDA $6C
+	STA $00
+	LDA $6B
+	CLC
+	ADC $75
+	STA $6B
+	LDA $6C
+	ADC $76
+	STA $6C
+	CLA
+	ADC $6D
+	CLC
+	ADC $77
+	STA $6D
+	LDA $6C
+	EOR $00
+	AND #$20
+	BEQ $EB91
+	LDA $4F
+	CLC
+	ADC #$04
+	AND #$3C
+	STA $4F
+$EB91:	
+	LDA $6F
+	STA $02
+	LDA $70
+	STA $03
+	LDA $6E
+	CLC
+	ADC $78
+	STA $6E
+	LDA $6F
+	ADC $79
+	STA $6F
+	BBS7 $79, $EBC9
+	BCC $EBAD
+	INC $70
+$EBAD:
+	LDA $3F
+	CMP #$02
+	BNE $EBE7
+	LDA $70
+	CMP #$00
+	BNE $EBBD
+	LDA $6F
+	CMP #$E7
+$EBBD:	
+	BCC $EBE7
+	LDA #$E7
+	STA $6F
+	LDA #$00
+	STA $70
+	BRA $EBE7
+$EBC9:
+	BCS $EBE7
+	DEC $70
+	LDA $3F
+	CMP #$02
+	BNE $EBE7
+	LDA $70
+	CMP #$02
+	BNE $EBDD
+	LDA $6F
+	CMP #$00
+$EBDD:
+	BCC $EBE7
+	LDA #$00
+	STA $6F
+	LDA #$00
+	STA $70
+$EBE7:
+	LDA $6F
+	STA $04
+	LDA $70
+	STA $05
+	BBR7 $70, $EC01
+	LDA $6F
+	CLC
+	ADC #$C0
+	STA $6F
+	LDA $70
+	ADC #$01
+	STA $70
+	BRA $EC1A
+$EC01:	
+	LDA $70
+	CMP #$01
+	BNE $EC0B
+	LDA $6F
+	CMP #$C0
+$EC0B:
+	BCC $EC1A
+	LDA $6F
+	SEC
+	SBC #$C0
+	STA $6F
+	LDA $70
+	SBC #$01
+	STA $70
+$EC1A:
+	STZ $73
+	STZ $74
+	STZ $78
+	STZ $79
+	RTS
+$EC23:	
+	JSR $F27D
+	LDA $24
+	STA $0000
+	LDA $25
+	STA $0010
+	PLY
+	PLX
+	PLA
+	RTI
+TIMER:
+	PHA
+	PHX
+	PHY
+	STA IRQREG
+	LDA $3B8B
+	BNE $EC6E
+	INC $3B8B
+	CLI
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$58
+	TAM #MPR3
+	INC A
+	TAM #MPR4
+	INC A
+	TAM #MPR5
+	INC A
+	TAM #MPR6
+	JSR $600C
+	STZ $3B8B
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+$EC6E:
+	PLY
+	PLX
+	PLA
+	RTI
+IRQ1:
+	PHA
+	PHX
+	PHY
+	LDA $0000
+	BIT #$20
+	BNE $EC8F
+	BIT #$04
+	BNE $EC23
+	ORA $1E
+	STA $1E
+	LDA $0010
+	ORA $1F
+	STA $1F
+	PLY
+	PLX
+	PLA
+IRQ2:
+NMI:
+	RTI
+$EC8F:	
+	LDA #$05
+	STA $0000
+	LDA $20
+	STA $0002
+	LDA #$05
+	STA $0010
+	LDA $22
+	STA $0012
+	BBR0 $1C, $ECD4
+	JSR $F223
+	TMA #MPR3
+	PHA
+	TMA #MPR4
+	PHA
+	TMA #MPR5
+	PHA
+	TMA #MPR6
+	PHA
+	LDA #$58
+	TAM #MPR3
+	INC A
+	TAM #MPR4
+	INC A
+	TAM #MPR5
+	INC A
+	TAM #MPR6
+	JSR $6003
+	PLA
+	TAM #MPR6
+	PLA
+	TAM #MPR5
+	PLA
+	TAM #MPR4
+	PLA
+	TAM #MPR3
+	JMP $ED5C
+$ECD4:
+	JSR $F0B4
+	LDA $3B8C
+	BEQ $ED18
+	STZ $3B8C
+	LDA #$10
+	STA $24
+	STA $0000
+	LDA $3B8D
+	STA $0002
+	LDA $3B8E
+	STA $0003
+	LDA #$11
+	STA $24
+	STA $0000
+	LDA $3B8F
+	STA $0002
+	LDA $3B90
+	STA $0003
+	LDA #$12
+	STA $24
+	STA $0000
+	LDA $3B91
+	STA $0002
+	LDA $3B92
+	STA $0003
+$ED18:
+	LDA $3B93
+	BEQ $ED59
+	STZ $3B93
+	LDA #$10
+	STA $25
+	STA $0010
+	LDA $3B94
+	STA $0012
+	LDA $3B95
+	STA $0013
+	LDA #$11
+	STA $25
+	STA $0010
+	LDA $3B96
+	STA $0012
+	LDA $3B97
+	STA $0013
+	LDA #$12
+	STA $25
+	STA $0010
+	LDA $3B98
+	STA $0012
+	LDA $3B99
+	STA $0013
+$ED59:
+	JSR $6D93
+$ED5C:
+	SMB0 $1C
+	JSR $ED6F
+	LDA $24
+	STA $0000
+	LDA $25
+	STA $0010
+	PLY
+	PLX
+	PLA
+	RTI
+$ED6F:
+	CLY
+	LDA #$01
+	STA $1000
+	LDA #$03
+	STA $1000
+$ED7A:
+	LDA #$01
+	STA $1000
+	PHA
+	PLA
+	NOP
+	LDA $2026, Y
+	STA $202B, Y
+	LDA $1000
+	ASL A
+	ASL A
+	ASL A
+	ASL A
+	STA $2026, Y
+	STZ $1000
+	PHA
+	PLA
+	NOP
+	LDA $1000
+	AND #$0F
+	ORA $2026, Y
+	EOR #$FF
+	STA $2026, Y
+	EOR $202B, Y
+	AND $2026, Y
+	STA $2030, Y
+	INY
+	CPY #$05
+	BCC $ED7A
+	CLY
+$EDB4:
+	LDA $35
+	AND $EDD2, Y
+	BEQ $EDCC
+	LDA $2030, Y
+	CMP #$04
+	BNE $EDCC
+	LDA $2026, Y
+	CMP #$0C
+	BNE $EDCC
+	JMP STARTUP
+$EDCC:
+	INY
+	CPY #$05
+	BNE $EDB4
+	RTS
+$EDD2:
+	.db $01, $02, $04, $08, $10
+$EDD7:
+	CLA
+	STA $4C00
+	DEC A
+	STA $4C40
+	STA $4CC0
+	STA $4DC0
+	STA $4D40
+	STA $4E40
+	LDA #$01
+	STA $4B
+	RTS
+$EDF0:
+	CLY
+	CLX
+$EDF2:
+	LDA $4C00, X
+	CMP $00
+	BEQ $EE55
+	BCS $EE43
+	TXA
+	TAY
+	LDA $4C40, X
+	TAX
+	CMP #$FF
+	BNE $EDF2
+	LDA $4B
+	STA $4C40, Y
+	TAX
+	LDA $00
+	STA $4C00, X
+	LDA #$FF
+	STA $4C40, X
+$EE15:
+	LDA $02
+	STA $4C80, X
+	LDA $03
+	STA $4CC0, X
+	LDA $04
+	STA $4D00, X
+	LDA $05
+	STA $4D40, X
+	LDA $06
+	STA $4D80, X
+	LDA $07
+	STA $4DC0, X
+	LDA $08
+	STA $4E00, X
+	LDA $09
+	STA $4E40, X
+	INX
+	STX $4B
+	LDX $A2
+	RTS
+$EE43:	
+	LDA $4B
+	STA $4C40, Y
+	TXA
+	LDX $4B
+	STA $4C40, X
+	LDA $00
+	STA $4C00, X
+	BRA $EE15
+$EE55:
+	LDY $03
+	BMI $EE62
+	LDA $02
+	STA $4C80, X
+	TYA
+	STA $4CC0, X
+$EE62:	
+	LDY $05
+	BMI $EE6F
+	LDA $04
+	STA $4D00, X
+	TYA
+	STA $4D40, X
+$EE6F:
+	LDY $07
+	BMI $EE7C
+	LDA $06
+	STA $4D80, X
+	TYA
+	STA $4DC0, X
+$EE7C:
+	LDY $09
+	BMI $EE89
+	LDA $08
+	STA $4E00, X
+	TYA
+	STA $4E40, X
+$EE89:
+	LDX $A2
+	RTS
+$EE8C:
+	LDA $3B82
+	BEQ $EE9A
+	LDA $3A
+	AND #$01
+	BNE $EE9A
+	JMP $EED1
+$EE9A:
+	LDA $5E
+	CMP #$00
+	BNE $EEA4
+	LDA $5D
+	CMP #$E9
+$EEA4:
+	BCC $EEB5
+	LDA $5E
+	CMP #$01
+	BNE $EEB0
+	LDA $5D
+	CMP #$BF
+$EEB0:
+	BEQ $EEB5
+	JSR $EF73
+$EEB5:
+	LDA $64
+	CMP #$00
+	BNE $EEBF
+	LDA $63
+	CMP #$E9
+$EEBF:
+	BCC $EED0
+	LDA $64
+	CMP #$01
+	BNE $EECB
+	LDA $63
+	CMP #$BF
+$EECB:
+	BEQ $EED0
+	JSR $EFF0
+$EED0:
+	RTS
+$EED1:
+	LDA $5A
+	PHA
+	LDA $5B
+	PHA
+	LDA $5D
+	PHA
+	LDA $5E
+	PHA
+	LDA $60
+	PHA
+	LDA $61
+	PHA
+	LDA $63
+	PHA
+	LDA $64
+	PHA
+	LDA $5A
+	CLC
+	ADC $3B83
+	STA $5A
+	LDA $5B
+	ADC $3B84
+	STA $5B
+	LDA $5D
+	CLC
+	ADC $3B85
+	STA $5D
+	LDA $5E
+	ADC $3B86
+	STA $5E
+	LDA $5E
+	CMP #$01
+	BNE $EF11
+	LDA $5D
+	CMP #$C0
+$EF11:	
+	BCC $EF20
+	LDA $5D
+	SEC
+	SBC #$C0
+	STA $5D
+	LDA $5E
+	SBC #$01
+	STA $5E
+$EF20:
+	LDA $60
+	CLC
+	ADC $3B87
+	STA $60
+	LDA $61
+	ADC $3B88
+	STA $61
+	LDA $63
+	CLC
+	ADC $3B89
+	STA $63
+	LDA $64
+	ADC $3B8A
+	STA $64
+	LDA $64
+	CMP #$01
+	BNE $EF48
+	LDA $63
+	CMP #$C0
+$EF48:
+	BCC $EF57
+	LDA $63
+	SEC
+	SBC #$C0
+	STA $63
+	LDA $64
+	SBC #$01
+	STA $64
+$EF57:
+	JSR $EE9A
+	PLA
+	STA $64
+	PLA
+	STA $63
+	PLA
+	STA $61
+	PLA
+	STA $60
+	PLA
+	STA $5E
+	PLA
+	STA $5D
+	PLA
+	STA $5B
+	PLA
+	STA $5A
+	RTS
+$EF73:	
+	LDA #$BF
+	STA $00
+	LDA #$01
+	STA $01
+	LDA $00
+	SEC
+	SBC $5D
+	STA $00
+	LDA $01
+	SBC $5E
+	STA $01
+	CLY
+	CLX
+$EF8A:
+	LDA $4C00, X
+	CMP $00
+	BEQ $EFBC
+	BCS $EFC7
+	TXA
+	TAY
+	LDA $4C40, X
+	TAX
+	CMP #$FF
+	BNE $EF8A
+	LDA $4B
+	STA $4C40, Y
+	TAX
+	LDA $00
+	STA $4C00, X
+	LDA #$FF
+	STA $4C40, X
+	LDA $FF
+	STA $4CC0, X
+	STA $4DC0, X
+	STA $44E0, X
+	TXA
+	INC A
+	STA $4B
+$EFBC:	
+	LDA #$FF
+	STA $4D00, X
+	LDA #$01
+	STA $4D40, X
+	RTS
+$EFC7:	
+	LDA $4B
+	STA $4C40, Y
+	TXA
+	LDX $4B
+	STA $4C40, X
+	LDA $00
+	STA $4C00, X
+	LDA #$FF
+	STA $4CC0, X
+	STA $4DC0, X
+	STA $4E40, X
+	LDA #$FF
+	STA $4D00, X
+	LDA #$01
+	STA $4D40, X
+	INX
+	STX $4B
+	RTS
+$EFF0:
+	LDA #$BF
+	STA $00
+	LDA #$01
+	STA $01
+	LDA $00
+	SEC
+	SBC $63
+	STA $00
+	LDA $01
+	SBC $64
+	STA $01
+	CLY
+	CLX
+$F007:
+	LDA $4C00, X
+	CMP $00
+	BEQ $F039
+	BCS $F044
+	TXA
+	TAY
+	LDA $4C40, X
+	TAX
+	CMP #$FF
+	BNE $F007
+	LDA $4B
+	STA $4C40, Y
+	TAX
+	LDA $00
+	STA $4C00, X
+	LDA #$FF
+	STA $4C40, X
+	LDA #$FF
+	STA $4CC0, X
+	STA $4DC0, X
+	STA $4D40, X
+	TXA
+	INC A
+	STA $4B
+$F039:
+	LDA #$FF
+	STA $4E00, X
+	LDA #$01
+	STA $4E40, X
+	RTS
+$F044:
+	LDA $4B
+	STA $4C40, Y
+	TXA
+	LDX $4B
+	STA $4C40, X
+	LDA $00
+	STA $4C00, X
+	LDA #$FF
+	STA $4CC0, X
+	STA $4DC0, X
+	STA $4D40, X
+	LDA #$FF
+	STA $4E00, X
+	LDA #$01
+	STA $4E40, X
+	INX
+	STX $4B
+	RTS
+$F06D:
+	CLY
+	CLX
+$F06F:
+	LDA $4C00, X
+	CMP #$D8
+	BEQ $F088
+	BCS $F0AB
+	TXA
+	TAY
+	LDA $4C40, X
+	TAX
+	CMP #$FF
+	BNE $F06F
+	LDA $4B
+	STA $4C40, Y
+	TAX
+$F088:
+	LDA #$D8
+	STA $4C00, X
+	LDA #$FF
+	STA $4C40, X
+	LDA #$FF
+	STA $4CC0, X
+	STA $4D40, X
+	STZ $4D80, X
+	STZ $4DC0, X
+	LDA #$BF
+	STA $4E00, X
+	LDA #$01
+	STA $4E40, X
+	RTS
+$F0AB:	
+	LDA $4B
+	STA $4C40, Y
+	TAX
+	BRA $F088
+	RTS
+$F0B4:
+	LDA $3B82
+	BEQ $F0C2
+	LDA $3A
+	AND #$01
+	BNE $F0C2
+	JMP $F181
+$F0C2:
+	LDA $5A
+	STA $51
+	LDA $5B
+	AND #$01
+	STA $52
+	LDA $5E
+	CMP #$01
+	BNE $F0D6
+	LDA $5D
+	CMP #$BF
+$F0D6:
+	BNE $F0E2
+	LDA #$FF
+	STA $53
+	LDA #$01
+	STA $54
+	BRA $F0EC
+$F0E2:	
+	LDA $5D
+	STA $53
+	LDA $5E
+	AND #$01
+	STA $54
+$F0EC:
+	LDA $60
+	STA $55
+	LDA $61
+	AND #$01
+	STA $56
+	LDA $64
+	CMP #$01
+	BNE $F100
+	LDA $63
+	CMP #$BF
+$F100:
+	BNE $F10C 
+	LDA #$FF
+	STA $57
+	LDA #$01
+	STA $58
+	BRA $F116
+$F10C:
+	LDA $63
+	STA $57
+	LDA $64
+	AND #$01
+	STA $58
+$F116:	
+	LDA #$07
+	STA $24
+	STA $0000
+	LDA $51
+	STA $0002
+	LDA $52
+	STA $0003
+	LDA #$08
+	STA $24
+	STA $0000
+	LDA $53
+	STA $0002
+	LDA $54
+	STA $0003
+	LDA #$07
+	STA $25
+	STA $0010
+	LDA $55
+	STA $0012
+	LDA $56
+	STA $0013
+	LDA #$08
+	STA $25
+	STA $0010
+	LDA $57
+	STA $0012
+	LDA $58
+	STA $0013
+	TII $4C00, $4E80, $0280
+	LDA $4EC0
+	STA $4C
+	CMP #$FF
+	BEQ $F180
+	TAX
+	LDA #$06
+	STA $24
+	STA $0000
+	LDA $4E80, X
+	CLC
+	ADC #$40
+	STA $0002
+	CLA
+	ROL A
+	STA $0003
+$F180:	
+	RTS
+$F181:	
+	LDA $5A
+	PHA
+	LDA $5B
+	PHA
+	LDA $5D
+	PHA
+	LDA $5E
+	PHA
+	LDA $60
+	PHA
+	LDA $61
+	PHA
+	LDA $63
+	PHA
+	LDA $64
+	PHA
+	LDA $5A
+	CLC
+	ADC $3B83
+	STA $5A
+	LDA $5B
+	ADC $3B84
+	STA $5B
+	LDA $5D
+	CLC
+	ADC $3B85
+	STA $5D
+	LDA $5E
+	ADC $3B86
+	STA $5E
+	LDA $5E
+	CMP #$01
+	BNE $F1C1
+	LDA $5D
+	CMP #$C0
+$F1C1:	
+	BCC $F1D0
+	LDA $5D
+	SEC A 
+	SBC #$C0
+	STA $5D
+	LDA $5E
+	SBC #$01
+	STA $5E
+$F1D0:
+	LDA $60
+	CLC
+	ADC $3B87
+	STA $60
+	LDA $61
+	ADC $3B88
+	STA $61
+	LDA $63
+	CLC
+	ADC $3B89
+	STA $63
+	LDA $64
+	ADC $3B8A
+	STA $64
+	LDA $64
+	CMP #$01
+	BNE $F1F8
+	LDA $63
+	CMP #$C0
+$F1F8:	
+	BCC $F207
+	LDA $63
+	SEC A
+	SBC #$C0
+	STA $63
+	LDA $64
+	SBC #$01
+	STA $64
+$F207:
+	JSR $F0C2
+	PLA
+	STA $64
+	PLA
+	STA $63
+	PLA
+	STA $61
+	PLA
+	STA $60
+	PLA
+	STA $5E
+	PLA
+	STA $5D
+	PLA
+	STA $5B
+	PLA
+	STA $5A
+	RTS
+$F223:
+	LDA #$07
+	STA $0000
+	LDA $51
+	STA $0002
+	LDA $52
+	STA $0003
+	LDA #$08
+	STA $0000
+	LDA $53
+	STA $0002
+	LDA $54
+	STA $0003
+	LDA #$07
+	STA $0010
+	LDA $55
+	STA $0012
+	LDA $56
+	STA $0013
+	LDA #$08
+	STA $0010
+	LDA $57
+	STA $0012
+	LDA $58
+	STA $0013
+	LDA $4EC0
+	STA $4C
+	CMP #$FF
+	BEQ $F27C
+	TAX
+	LDA #$06
+	STA $0000
+	LDA $4E80, X
+	CLC
+	ADC #$40
+	STA $0002
+	CLA
+	ROL A
+	STA $0003
+$F27C:
+	RTS
+$F27D:	
+	LDX $4C
+	LDA $4EC0, X
+	CMP #$FF
+	BEQ $F29E
+	STA $4C
+	TAY
+	LDA #$06
+	STA $0000
+	LDA $4E80, Y
+	CLC
+	ADC #$40
+	STA $0002
+	CLA
+	ROL A
+	STA $0003
+	BRA $F2A3
+$F29E:	
+	LDA #$08
+$F2A0:
+	DEC A
+	BNE $F2A0
+$F2A3:
+	LDA $4E80, X
+	CMP #$D8
+	BNE $F2AD 
+	JMP $F33B
+$F2AD:
+	LDY $50C0, X
+	BMI $F2C3
+	LDA #$08
+	STA $0010
+	LDA $5080, X
+	STA $0012
+	TYA
+	AND #$01
+	STA $0013
+$F2C3:
+	LDY $5040, X
+	BMI $F2D9
+	LDA #$07
+	STA $0010
+	LDA $5000, X
+	STA $0012
+	TYA
+	AND #$01
+	STA $0013
+$F2D9:
+	LDY $4FC0, X
+	BMI $F2EF
+	LDA #$08
+	STA $0000
+	LDA $4F80, X
+	STA $0002
+	TYA
+	AND #$01
+	STA $0003
+$F2EF:
+	LDY $4F40, X
+	BMI $F305
+	LDA #$07
+	STA $0000
+	LDA $4F00, X
+	STA $0002
+	TYA
+	AND #$01
+	STA $0003
+$F305:
+	LDY $9F
+	LDA $F3AE, Y
+	BNE $F317
+	LDA $4E80, X
+	CMP #$C6
+	BEQ $F318
+	CMP #$C7
+	BEQ $F318
+$F317:
+	RTS
+$F318:
+	LDA $2220
+	BIT #$08
+	BEQ $F322
+	JMP $F33A
+$F322:	
+	LDA #$05
+	STA $0000
+	LDA $20
+	AND #$BF
+	STA $0002
+	LDA #$05
+	STA $0010
+	LDA $22
+	AND #$BF
+	STA $0012
+$F33A:
+	RTS
+$F33B:	
+	BBR2 $1D, $F341
+	JMP $F3AD
+$F341:
+	LDY $50C0, X
+	BMI $F357
+	LDA #$08
+	STA $0010
+	LDA $5080, X
+	STA $0012
+	TYA
+	AND #$01
+	STA $0013
+$F357:
+	LDY $5040, X
+	BMI $F36D
+	LDA #$07
+	STA $0010
+	LDA $5000, X
+	STA $0012
+	TYA
+	AND #$01
+	STA $0013
+$F36D:
+	LDY $4FC0, X
+	BMI $F383
+	LDA #$08
+	STA $0000
+	LDA $4F80, X
+	STA $0002
+	TYA
+	AND #$01
+	STA $0003
+$F383:	
+	LDY $4F40, X
+	BMI $F399
+	LDA #$07
+	STA $0000
+	LDA $4F00, X
+	STA $0002
+	TYA
+	AND #$01
+	STA $0003
+$F399:	
+	LDA #$05
+	STA $0000
+	LDA $21
+	STA $0002
+	LDA #$05
+	STA $0010
+	LDA $23
+	STA $0012
+$F3AD:	
+	RTS
+$F3AE:
+	.DB $00, $00,
+	$00, $00, $00, $00, $01, $00, $01, $00, $01, $00, $02, $00,
+	$02, $00, $02, $00, $03, $00, $03, $00, $03, $00, $04, $00,
+	$04, $00, $04, $00, $05, $00, $05, $00, $05, $00, $06, $00,
+	$06, $00, $07, $00, $07, $00, $07, $00, $07, $00, $07, $00,
+	$A3, $F4, $CC, $F4, $F5, $F4, $1E, $F5, $47, $F5, $70, $F5,
+	$28, $F4, $51, $F4, $7A, $F4, $14, $F6, $3D, $F6, $66, $F6,
+	$99, $F5, $C2, $F5, $EB, $F5, $0A, $F7, $33, $F7, $5C, $F7,
+	$8F, $F6, $B8, $F6, $28, $F4, $28, $F4, $28, $F4, $00, $00,
+	$90, $90, $90, $90, $10, $10, $10, $90, $80, $80, $80, $00,
+	$00, $00, $80, $80, $80, $80, $80, $80, $80, $80, $80, $80,
+	$32, $FA, $48, $F8, $26, $3C, $21, $77, $80, $03, $80, $02,
+	$06, $80, $00, $38, $00, $10, $01, $54, $00, $14, $01, $04,
+	$00, $00, $FF, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $32, $FA, $48, $F8, $26, $3C, $21,
+	$77, $80, $03, $80, $02, $D4, $81, $00, $38, $00, $10, $01,
+	$54, $00, $14, $01, $04, $00, $00, $FF, $00, $2F, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $32, $FA,
+	$48, $F8, $26, $3C, $21, $77, $80, $03, $80, $02, $D6, $82,
+	$00, $38, $00, $10, $01, $54, $00, $14, $01, $04, $00, $00,
+	$FF, $00, $55, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $72, $FA, $4E, $F8, $24, $3C, $22, $77, $C0,
+	$00, $A0, $00, $02, $84, $00, $38, $00, $10, $01, $4C, $00,
+	$14, $01, $04, $12, $FC, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $08, $00, $72, $FA, $4E, $F8,
+	$24, $3C, $22, $77, $C0, $00, $A0, $00, $10, $85, $00, $38,
+	$00, $10, $01, $4C, $00, $14, $01, $04, $12, $FC, $00, $80,
+	$06, $07, $00, $02, $00, $00, $00, $00, $00, $00, $00, $08,
+	$00, $72, $FA, $4E, $F8, $24, $3C, $22, $77, $C0, $00, $A0,
+	$00, $CA, $85, $00, $38, $00, $10, $01, $4C, $00, $14, $01,
+	$04, $12, $FC, $00, $00, $0C, $0C, $00, $0A, $00, $00, $00,
+	$00, $00, $00, $00, $08, $00, $B2, $FA, $54, $F8, $25, $28,
+	$23, $77, $80, $00, $60, $00, $6E, $87, $02, $38, $00, $10,
+	$01, $4C, $00, $14, $01, $0D, $22, $FC, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $5A, $00, $6F, $00, $B2,
+	$FA, $54, $F8, $25, $28, $23, $77, $80, $00, $60, $00, $54,
+	$89, $02, $38, $00, $10, $01, $4C, $00, $14, $01, $0D, $22,
+	$FC, $00, $00, $07, $07, $00, $00, $00, $05, $00, $04, $00,
+	$E7, $00, $D8, $00, $B2, $FA, $54, $F8, $25, $28, $23, $77,
+	$80, $00, $60, $00, $3A, $8B, $02, $38, $00, $10, $01, $4C,
+	$00, $14, $01, $0D, $22, $FC, $00, $00, $0E, $0E, $00, $00,
+	$00, $0A, $00, $08, $00, $E0, $00, $D3, $00, $F2, $FA, $5A,
+	$F8, $28, $28, $78, $33, $80, $00, $50, $00, $C6, $8C, $00,
+	$38, $00, $10, $01, $4C, $00, $14, $01, $05, $32, $FC, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$0A, $00, $F2, $FA, $5A, $F8, $28, $28, $78, $33, $80, $00,
+	$50, $00, $F8, $8D, $00, $38, $00, $10, $01, $4C, $00, $14,
+	$01, $05, $32, $FC, $00, $00, $05, $05, $00, $00, $00, $03,
+	$00, $02, $00, $00, $00, $0A, $00, $F2, $FA, $5A, $F8, $28,
+	$28, $78, $33, $80, $00, $50, $00, $72, $8F, $00, $38, $00,
+	$10, $01, $4C, $00, $14, $01, $05, $32, $FC, $00, $00, $0A,
+	$0A, $00, $00, $00, $06, $00, $04, $00, $00, $00, $0A, $00,
+	$32, $FB, $60, $F8, $27, $28, $27, $33, $60, $00, $40, $00,
+	$E6, $90, $04, $38, $00, $10, $01, $4C, $00, $14, $01, $0F,
+	$42, $FC, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $80, $01, $90, $01, $32, $FB, $60, $F8, $27, $28, $27,
+	$33, $60, $00, $40, $00, $06, $92, $04, $38, $00, $10, $01,
+	$4C, $00, $14, $01, $0F, $42, $FC, $00, $00, $05, $05, $00,
+	$00, $00, $01, $00, $0C, $00, $80, $01, $90, $01, $32, $FB,
+	$60, $F8, $27, $28, $27, $33, $60, $00, $40, $00, $92, $93,
+	$04, $38, $00, $10, $01, $4C, $00, $14, $01, $0F, $42, $FC,
+	$00, $00, $0D, $0D, $00, $00, $00, $01, $00, $0C, $00, $00,
+	$00, $00, $00, $72, $FB, $66, $F8, $2A, $28, $29, $77, $80,
+	$00, $60, $00, $B8, $94, $00, $38, $00, $10, $01, $4C, $00,
+	$14, $01, $05, $53, $FC, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $80, $00, $72, $FB, $66, $F8,
+	$2A, $28, $29, $77, $80, $00, $60, $00, $D4, $96, $00, $38,
+	$00, $10, $01, $4C, $00, $14, $01, $05, $53, $FC, $00, $00,
+	$0B, $0B, $00, $00, $00, $00, $00, $04, $00, $00, $00, $80,
+	$00, $D2, $FB, $42, $F8, $91, $28, $2E, $33, $C0, $00, $80,
+	$00, $D4, $99, $00, $38, $00, $10, $01, $4C, $00, $14, $01,
+	$05, $73, $FC, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $08, $00, $00, $00, $92, $FB, $6C, $F8, $29, $3C,
+	$77, $33, $80, $00, $20, $00, $10, $9A, $00, $38, $00, $10,
+	$01, $4C, $00, $14, $01, $05, $63, $FC, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $92,
+	$FB, $6C, $F8, $29, $3C, $77, $33, $80, $00, $20, $00, $60,
+	$9B, $00, $38, $00, $10, $01, $4C, $00, $14, $01, $05, $63,
+	$FC, $00, $00, $06, $06, $00, $00, $00, $00, $00, $08, $00,
+	$00, $00, $00, $00, $92, $FB, $6C, $F8, $29, $3C, $77, $33,
+	$80, $00, $20, $00, $2E, $9D, $00, $38, $00, $10, $01, $4C,
+	$00, $14, $01, $05, $63, $FC, $00, $00, $0F, $0F, $00, $00,
+	$00, $01, $00, $04, $00, $00, $00, $00, $00, $12, $F9, $2A,
+	$F8, $00, $28, $20, $33, $00, $00, $00, $00, $00, $80, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $12, $FC, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $12, $F9, $30, $F8, $23, $28, $2D, $33, $00, $00,
+	$00, $00, $00, $80, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $12, $FC, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $92, $F8, $3C, $F8, $91,
+	$3C, $7D, $77, $40, $00, $10, $00, $00, $A0, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $04, $12, $FC, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$B2, $F8, $36, $F8, $91, $28, $2F, $33, $00, $00, $00, $00,
+	$00, $80, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$12, $FC, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $30, $6F, $70, $3E, $3E, $3E, $3E,
+	$4F, $50, $3E, $51, $52, $3E, $4B, $3E, $3E, $6A, $3E, $3E,
+	$53, $54, $55, $4A, $3E, $3E, $62, $63, $64, $65, $66, $3E,
+	$31, $32, $33, $34, $35, $36, $37, $38, $3E, $3A, $3B, $3E,
+	$3F, $4C, $4E, $40, $4D, $3E, $41, $67, $7C, $42, $69, $6B,
+	$43, $3E, $3E, $44, $3E, $3E, $45, $7B, $61, $46, $3D, $76,
+	$47, $6E, $3E, $48, $3E, $3E, $0F, $05, $0E, $05, $0E, $05,
+	$0E, $05, $0E, $05, $0E, $05, $0E, $05, $0E, $05, $0E, $05,
+	$0E, $05, $0E, $05, $0E, $05, $0E, $05, $0E, $05, $3E, $05,
+	$0E, $05, $30, $06, $31, $06, $32, $06, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $0E, $04,
+	$0E, $04, $0E, $04, $0E, $04, $0E, $04, $0E, $04, $0E, $04,
+	$0E, $04, $0E, $04, $0E, $04, $0E, $04, $0E, $04, $0E, $04,
+	$0E, $04, $0E, $04, $0E, $04, $0E, $02, $0E, $02, $0E, $02,
+	$0E, $02, $0E, $02, $0E, $02, $0E, $02, $0E, $02, $0E, $02,
+	$0E, $02, $0E, $02, $0E, $02, $0E, $02, $0E, $02, $0F, $02,
+	$0E, $02, $3F, $04, $3F, $04, $3F, $04, $3F, $04, $3F, $04,
+	$3F, $04, $3F, $04, $3F, $04, $3F, $04, $3F, $04, $3F, $04,
+	$3F, $04, $3F, $04, $3F, $04, $3F, $04, $3F, $04, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $04, $0F, $04, $0F, $04,
+	$0F, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04,
+	$0F, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04,
+	$0F, $04, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05,
+	$0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05,
+	$0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05,
+	$0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05,
+	$0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05,
+	$0F, $05, $0F, $05, $0F, $05, $0F, $07, $0F, $07, $0F, $07,
+	$0F, $07, $0F, $07, $0F, $07, $0F, $07, $0F, $07, $0F, $07,
+	$0F, $07, $0F, $07, $0F, $07, $0F, $07, $0F, $07, $0F, $07,
+	$0F, $07, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05,
+	$0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05,
+	$0F, $05, $0F, $05, $0F, $05, $0F, $05, $0F, $05, $00, $03,
+	$0E, $03, $0F, $03, $0F, $03, $0F, $03, $0F, $03, $0F, $03,
+	$0F, $03, $0F, $03, $0F, $03, $0F, $03, $0F, $03, $0F, $03,
+	$0F, $03, $0F, $03, $3F, $03, $00, $00, $0E, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00,
+	$3F, $00, $0F, $05, $0E, $00, $0E, $00, $0E, $00, $75, $05,
+	$0E, $00, $0E, $00, $0E, $00, $0E, $00, $0E, $00, $0E, $00,
+	$0E, $00, $0E, $00, $0E, $00, $0F, $00, $0E, $00, $00, $04,
+	$11, $04, $02, $04, $03, $04, $0F, $04, $0F, $04, $0F, $04,
+	$0F, $04, $0F, $04, $0F, $04, $0F, $04, $11, $04, $0F, $04,
+	$0F, $04, $0F, $04, $0F, $04, $1E, $00, $11, $00, $1E, $00,
+	$1E, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $11, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $00, $04, $11, $04, $78, $04, $0F, $04, $77, $04,
+	$64, $04, $76, $04, $07, $04, $0F, $04, $0F, $04, $0F, $04,
+	$11, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04, $1E, $00,
+	$11, $00, $1E, $00, $0F, $00, $1E, $00, $1E, $00, $1E, $00,
+	$07, $00, $0F, $00, $0F, $00, $0F, $00, $11, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $00, $04, $11, $04, $0F, $04,
+	$0F, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04, $08, $04,
+	$09, $04, $0A, $04, $11, $04, $0F, $04, $0D, $04, $0F, $04,
+	$0F, $04, $1E, $00, $11, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $1E, $00, $1E, $00, $1E, $00,
+	$11, $00, $0F, $00, $1E, $00, $0F, $00, $0F, $00, $00, $04,
+	$11, $04, $22, $04, $23, $04, $24, $04, $25, $04, $26, $04,
+	$27, $04, $0F, $04, $0F, $04, $0F, $04, $11, $04, $0F, $04,
+	$0F, $04, $0F, $04, $0F, $04, $1E, $00, $11, $00, $1E, $00,
+	$1E, $00, $1E, $00, $1E, $00, $1E, $00, $0F, $00, $0F, $00,
+	$0F, $00, $0F, $00, $11, $00, $0F, $00, $0F, $00, $0F, $00,
+	$0F, $00, $00, $04, $11, $04, $0F, $04, $0F, $04, $66, $04,
+	$62, $04, $63, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04,
+	$11, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04, $1E, $00,
+	$11, $00, $0F, $00, $0F, $00, $1E, $00, $1E, $00, $1E, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $11, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $00, $04, $11, $04, $42, $04,
+	$0F, $04, $44, $04, $45, $04, $46, $04, $47, $04, $48, $04,
+	$49, $04, $4A, $04, $11, $04, $0F, $04, $0F, $04, $0F, $04,
+	$0F, $04, $00, $04, $11, $04, $0F, $04, $0F, $04, $6F, $04,
+	$6E, $04, $70, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04,
+	$11, $04, $0F, $04, $0F, $04, $0F, $04, $0F, $04, $00, $00,
+	$11, $00, $0F, $00, $0F, $00, $1E, $00, $1E, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $0F, $00, $11, $00, $0F, $00,
+	$0F, $00, $0F, $00, $0F, $00, $00, $04, $11, $04, $12, $05,
+	$13, $05, $14, $05, $15, $05, $0F, $04, $0F, $04, $0F, $04,
+	$0F, $04, $1A, $04, $11, $04, $1C, $04, $0F, $04, $0F, $04,
+	$1F, $04, $00, $00, $11, $00, $1E, $00, $1E, $00, $1E, $00,
+	$1E, $00, $0F, $00, $0F, $00, $0F, $00, $0F, $00, $1E, $00,
+	$11, $00, $1E, $00, $0F, $00, $0F, $00, $1E, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $01,
+	$00, $00, $00, $00, $00, $00, $00, $00, $01, $00, $00, $01,
+	$00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $01, $03, $00, $00, $00, $00, $00, $00, $00,
+	$00, $00, $00, $00, $00, $00, $00, $00, $01, $00, $01, $01,
+	$01, $01, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$01, $04, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,
+	$00, $01, $00, $00, $00, $00, $00, $00, $00, $01, $00, $00,
+	$00, $00, $00, 
+INIT_VDC:
+	LDA #$04
+	STA $0400
+	CLX
+INIT_VDC_1:
+	LDA VDC_TABLE, X
+	STA $0000
+	INX
+	LDA VDC_TABLE, X
+	STA $0002
+	INX
+	LDA VDC_TABLE, X
+	STA $0003
+	INX
+	CPX #$21
+	BCC INIT_VDC_1
+	CLX
+INIT_VDC_2:
+	LDA VDC_TABLE, X
+	STA $0010
+	INX
+	LDA VDC_TABLE, X
+	STA $0012
+	INX
+	LDA VDC_TABLE, X
+	STA $0013
+	INX
+	CPX #$21
+	BCC INIT_VDC_2
+	RTS
+VDC_TABLE:
+	.DB $06, $00, $00
+	.DB $07, $00, $00
+	.DB $08, $00, $00
+	.DB $09, $50, $00
+	.DB $0A, $02, $02
+	.DB $0B, $1F, $04
+	.DB $0C, $02, $0F
+	.DB $0D, $EF, $00
+	.DB $0E, $04, $00
+	.DB $0F, $10, $00
+	.DB $13, $00, $10
+INIT_VCE:
+	STZ $0402
+	LDA #$01
+	STA $0403
+	STZ $0404
+	STZ $0405
+	RTS
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF,
+$FFE0:	
+	PHA
+	TMA #MPR7
+	PHA
+	LDA #$FC
+	TAM #MPR7
+	JMP $F364
+	PLA
+	TAM #MPR7
+	PLA
+	RTI
+	
+	.ORG $FFF6
+	.DW IRQ2
+	.DW IRQ1
+	.DW TIMER
+	.DW NMI
+	.DW STARTUP	
